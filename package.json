@@ -1,23 +1,16 @@
 {
-  "name": "ventura-api",
-  "version": "0.0.2",
+  "name": "example-api",
+  "version": "0.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon index.ts"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://MahmoudThePeltist@bitbucket.org/lanemo/ventura-api.git"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://bitbucket.org/lanemo/ventura-api/issues"
-  },
-  "homepage": "https://bitbucket.org/lanemo/ventura-api#readme",
+
   "dependencies": {
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
