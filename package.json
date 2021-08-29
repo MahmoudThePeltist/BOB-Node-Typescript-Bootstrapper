@@ -10,7 +10,6 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-
   "dependencies": {
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
