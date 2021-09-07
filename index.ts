@@ -6,6 +6,7 @@ import packageJson from './package.json';
 import AppRouter from './src/routers';
 import cors from 'cors';
 import * as systemSeeder from './src/seeders';
+import './src/cron';
 
 const PORT: string = process.env.PORT ?? '8000';
 const MONGODB: string = process.env.MONGODB ?? '';
