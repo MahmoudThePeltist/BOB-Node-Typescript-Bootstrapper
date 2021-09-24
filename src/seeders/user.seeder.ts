@@ -33,7 +33,7 @@ export const seed = async () => {
                 password: 'password',
             }),
         ])
-    } catch(e) {
+    } catch(e: any) {
         console.log("🌱 users - Seed warning: ", e.message);
     }
 } 

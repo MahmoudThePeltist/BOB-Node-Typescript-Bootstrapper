@@ -1,5 +1,9 @@
 # Node Bootstrapper One Billion (NBOB)
-Another NodeJS project bootstrapper for CRUD heavy RESTAPI Projects.
+Another NodeJS project bootstrapper for CRUD heavy RESTAPI Projects. With
+ * Built in JWT auth.
+ * Optional 2FA authentication for pairing with apps such as Google Authenticator.
+ * Automatic DB seeding.
+ * CRON job handling.
 ## Usage
 Eventually there may be a CLI tool to allow you to customize the experience provided by NBOB, but for now the best way to use it is to either clone the project or fork it and read through the examples.
 
@@ -24,6 +28,8 @@ Eventually there may be a CLI tool to allow you to customize the experience prov
  * `cors`: Cross Origin Request error handling.
  * `dotenv`: Environmental variable handling.
  * `node-cron`: CRON library to perform CRON operations.
+ * `otplib`: An OTP generator library.
+ * `qrcode`: A QR Code generator library.
 
  ### CREDITS
 
