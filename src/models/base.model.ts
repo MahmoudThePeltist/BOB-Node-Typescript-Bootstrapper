@@ -11,10 +11,27 @@ export default class BaseModel<T> implements BaseModelInterface<T> {
         this.relationships = relationships;
     }
 
-    public async get(query: any = {}) {
+    /**
+     * Get all items with their count, or paginate them.
+     * @param data 
+     * @returns 
+     */
+    public async get(query: any = {}, page?: number, pageSize: number = 10) {
         try {
-            return await this.entityModel.find(query)
-                .populate(this.relationships);
+            if(page == 0 || page){
+                let data = await this.entityModel.find(query)
+                    .limit(pageSize)
+                    .skip(page*pageSize)
+                    .populate(this.relationships);
+                
+                return {data, page, pageSize, total: await this.count(query)};
+            }
+            else {
+                let data = await this.entityModel.find(query)
+                    .populate(this.relationships);
+
+                return {data, total: await this.count(query)};
+            }
         } catch(e) {
             throw(e);
         }
@@ -36,9 +53,25 @@ export default class BaseModel<T> implements BaseModelInterface<T> {
         }
     }
 
-    public async delete(query: any) {
+    /**
+     * Delete takes a single item or an array of items
+     * @param data 
+     * @returns 
+     */
+    public async delete(data: any | any[]) {
         try {
-            return await this.entityModel.deleteOne(query);
+            if(Array.isArray(data))
+                return await this.entityModel.deleteMany({_id: {$in: data}});
+            else
+                return await this.entityModel.deleteOne({_id: data});
+        } catch(e) {
+            throw(e);
+        }
+    }
+
+    public async count(query: any) {
+        try {
+            return await this.entityModel.countDocuments(query);
         } catch(e) {
             throw(e);
         }
