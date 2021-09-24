@@ -12,9 +12,11 @@ let qufl = new Qufl({ secret: process.env.JWT_SECRET });
 let controller = new UserController(model);
 
 UserRouter.get('/', qufl.auth(), (req, res, next) => controller.getAll(req, res, next));
+UserRouter.get('/count', qufl.auth(), (req, res, next) => controller.count(req, res, next));
 UserRouter.get('/:id', qufl.auth(), (req, res, next) => controller.getSpecific(req, res, next));
 UserRouter.post('/', qufl.auth(), (req, res, next) => controller.create(req, res, next));
 UserRouter.patch('/:id', qufl.auth(), (req, res, next) => controller.update(req, res, next));
 UserRouter.delete('/:id', qufl.auth(), (req, res, next) => controller.delete(req, res, next));
+UserRouter.delete('/', qufl.auth(), (req, res, next) => controller.deleteMany(req, res, next));
 
 export default UserRouter;
