@@ -10,6 +10,10 @@ export const UserSchema = new Schema<User>({
         { type: String, required: true },
     email:
         { type: String, required: true, unique: true },
+    MFA_secret:
+        { type: String, unique: true },
+    MFA_enabled:
+        { type: Boolean, default: false },
     created_at: 
         { type: Number, default: new Date().getTime() },
     updated_at: 
