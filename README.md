@@ -1,9 +1,10 @@
 # Node Bootstrapper One Billion (NBOB)
-Another NodeJS project bootstrapper for CRUD heavy RESTAPI Projects. With
- * Built in JWT auth.
- * Optional 2FA authentication for pairing with apps such as Google Authenticator.
- * Automatic DB seeding.
+Another NodeJS project bootstrapper for CRUD heavy RESTAPI Projects. Features:
+ * Built in JWT authentication and the relevent endpoints.
+ * Optional 2FA authentication (for apps such as Google Authenticator)
+ * Optional Automatic DB seeding on launch.
  * CRON job handling.
+ * Robust query builder with pagination.
 ## Usage
 Eventually there may be a CLI tool to allow you to customize the experience provided by NBOB, but for now the best way to use it is to either clone the project or fork it and read through the examples.
 
@@ -17,19 +18,22 @@ Eventually there may be a CLI tool to allow you to customize the experience prov
  * /src/routers     - Route files to define the project RESTful endpoints. 
  * /src/controllers - MVC Controllers to contain the project business logic.
  * /src/cron        - A centralized CRON directory for all CRON operations.
+ * /src/middleware  - Expressjs middleware, currently has security and ratelimiting.
+ * /src/utils       - Utilities and helper functions, currently has file upload and a query builder.
 ```
 ## Packages of note
  * [Express:](expressjs.com) "A minimal and flexible Node.js web application framework that provides a robust set of features for web and mobile applications."
  * [Mongoose:](https://mongoosejs.com/) The project is specifically designed to work with Mongoose, this is a consious decision to streamline development.
  * [Qufl:](https://github.com/Mahamed-Belkheir/qufl) A Great JWT auth library that supports refresh tokens.
  
- ## Other Packages
+ ## Other Notable Packages
  * `bcrypt`: Used for password encryption as part of user auth.
  * `cors`: Cross Origin Request error handling.
  * `dotenv`: Environmental variable handling.
  * `node-cron`: CRON library to perform CRON operations.
  * `otplib`: An OTP generator library.
  * `qrcode`: A QR Code generator library.
+ * `express-rate-limit`: Rate limiting library for security. 
 
  ### CREDITS
 
