@@ -20,7 +20,7 @@ export const seed = async () => {
                 name: 'name',
             }),
         ])
-    } catch(e) {
+    } catch(e: any) {
         console.log("🌱 subcategories - Seed warning: ", e.message);
     }
 } 
