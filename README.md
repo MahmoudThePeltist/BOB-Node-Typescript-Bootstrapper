@@ -17,11 +17,11 @@ Eventually there may be a CLI tool to allow you to customize the experience prov
 
 ### Variants
 
-1. NoSQL Variant, loosely coupled to MongoDB via Mongoose at the Model Layer, on branch `variant-nosql` can be cloned using
-    ``` git clone -b variant-nosql https://github.com/MahmoudThePeltist/BOB-Node-Typescript-Bootstrapper.git ```
+ 1. NoSQL Variant, loosely coupled to MongoDB via Mongoose at the Model Layer, on branch `variant-nosql` can be cloned using:
+ ``` git clone -b variant-nosql https://github.com/MahmoudThePeltist/BOB-Node-Typescript-Bootstrapper.git ```
 
-1. SQL/noSQL Variant, loosely coupled to Prisma and can be used with any database at the Model Layer, on branch `variant-sql` can be cloned using
-    ``` git clone -b variant-sql https://github.com/MahmoudThePeltist/BOB-Node-Typescript-Bootstrapper.git ```
+ 2. SQL/noSQL Variant, loosely coupled to Prisma and can be used with any database at the Model Layer, on branch `variant-sql` can be cloned using:
+ ``` git clone -b variant-sql https://github.com/MahmoudThePeltist/BOB-Node-Typescript-Bootstrapper.git ```
  ### CREDITS
 
  inspired by [Haykal](https://github.com/Mahamed-Belkheir/haykal) and [Laravel](https://laravel.com/)!
