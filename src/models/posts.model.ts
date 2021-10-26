@@ -1,17 +1,17 @@
 import { PrismaClient } from '@prisma/client';
-import { User } from '../interfaces/user.interface';
+import { Post } from '../interfaces/post.interface';
 import BaseModel from './base.model';
 
-export default class UserModel extends BaseModel<User> {
+export default class PostModel extends BaseModel<Post> {
     
     constructor() {
         let prisma: PrismaClient = new PrismaClient();
 
         let relationships = {
-            'posts': true
+            'author': true
         }
-
-        super(prisma.user, relationships);
+        
+        super(prisma.post, relationships);
     }
 
 }

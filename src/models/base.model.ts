@@ -1,35 +1,43 @@
-import { Model, model, Schema } from 'mongoose';
+import { Prisma, PrismaClient } from '@prisma/client';
 import { BaseModelInterface } from '../interfaces/model.interface';
 
 export default class BaseModel<T> implements BaseModelInterface<T> {
 
-    protected entityModel: Model<T>;
-    protected relationships: string[];
+    protected model: any;
+
+    protected relationships: {[relationship: string]: boolean};
     
-    constructor(tablename: string, schema: Schema<T>, relationships: string[] = []) {
-        this.entityModel = model<T>(tablename, schema);
+    constructor(model: any, relationships: {[relationship: string]: boolean} = {}) {
         this.relationships = relationships;
+        this.model = model;
     }
 
     /**
      * Get all items with their count, or paginate them.
-     * @param data 
-     * @returns 
+     * @param data
      */
     public async get(query: any = {}, page?: number, pageSize: number = 10) {
+        let include: any = this.relationships ? this.relationships : undefined;
+
         try {
-            if(page == 0 || page){
-                let data = await this.entityModel.find(query)
-                    .limit(pageSize)
-                    .skip(page*pageSize)
-                    .populate(this.relationships);
-                
+            if(page == 0 || page) {
+                let data = await this.model.findMany({
+                    take: pageSize,
+                    skip: page * pageSize,
+                    where: query,
+                    include,
+                    orderBy: {
+                        created_at: 'desc'
+                    }
+                });
                 return {data, page, pageSize, total: await this.count(query)};
             }
-            else {
-                let data = await this.entityModel.find(query)
-                    .populate(this.relationships);
-
+            else
+            {
+                let data = await this.model.findUnique({
+                    where: query,
+                    include
+                });
                 return {data, total: await this.count(query)};
             }
         } catch(e) {
@@ -37,33 +45,55 @@ export default class BaseModel<T> implements BaseModelInterface<T> {
         }
     }
 
-    public async create(data: T | T[]) {
+    /**
+     * Create takes a single item or an array of items for creating one or many
+     * @param data
+     */
+    public async create(data: any | any[]) {
         try {
-            return await this.entityModel.create(data);
+            if(Array.isArray(data))
+                return await this.model.createMany({data});
+            else
+                return await this.model.create({data});
         } catch(e) {
             throw(e);
         }
     }
 
-    public async update(query: any, data: T) {
+    public async update(query: any, data: Partial<T>) {
         try {
-            return await this.entityModel.updateOne(query, data);
+            return await this.model.update({where: query, data});
+        } catch(e) {
+            throw(e);
+        }
+    }
+
+    public async updateMany(query: any, data: Partial<T>) {
+        try {
+            return await this.model.updateMany({where: query, data});
+        } catch(e) {
+            throw(e);
+        }
+    }
+
+    public async upsert(query: any, data: Partial<T>) {
+        try {
+            return await this.model.upsert({where: query, update: data, create: data});
         } catch(e) {
             throw(e);
         }
     }
 
     /**
-     * Delete takes a single item or an array of items
-     * @param data 
-     * @returns 
+     * Delete takes a single item or an array of items for deleting one or many
+     * @param data
      */
     public async delete(data: any | any[]) {
         try {
             if(Array.isArray(data))
-                return await this.entityModel.deleteMany({_id: {$in: data}});
+                return await this.model.deleteMany({where: {id: {in: data}}});
             else
-                return await this.entityModel.deleteOne({_id: data});
+                return await this.model.delete({where: {id: data}});
         } catch(e) {
             throw(e);
         }
@@ -71,7 +101,7 @@ export default class BaseModel<T> implements BaseModelInterface<T> {
 
     public async count(query: any) {
         try {
-            return await this.entityModel.countDocuments(query);
+            return await this.model.count({where: query});
         } catch(e) {
             throw(e);
         }
