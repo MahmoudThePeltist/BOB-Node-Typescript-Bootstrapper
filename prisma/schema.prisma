@@ -1,0 +1,38 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// provider can be "postgresql" "mysql" "sqlserver" "sqlite" or "mongodb"
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+    id          String    @id @default(uuid())
+    name        String
+    role        String
+    password    String
+    email       String    @unique
+    posts       Post[]
+    MFA_secret  String?
+    MFA_enabled Boolean   @default(false)
+    created_at  DateTime  @default(now())
+    updated_at  DateTime?
+    deleted_at  DateTime?
+}
+
+model Post {
+    id          String    @id @default(uuid())
+    title       String
+    body        String
+    author      User      @relation(fields: [author_id], references: [id])
+    author_id   String
+    created_at  DateTime  @default(now())
+    updated_at  DateTime?
+    deleted_at  DateTime?
+}
