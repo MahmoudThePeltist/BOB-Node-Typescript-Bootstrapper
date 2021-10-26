@@ -6,6 +6,11 @@
       "outDir": "./build",
       "esModuleInterop": true,
       "resolveJsonModule": true,
+      "forceConsistentCasingInFileNames": true,
       "strict": true
-    }
+    },
+    "include": [
+      "src/**/*.ts",
+      "src/**/*.js"
+    ]
 }

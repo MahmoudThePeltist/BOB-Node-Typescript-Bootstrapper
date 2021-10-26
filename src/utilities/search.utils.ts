@@ -16,7 +16,7 @@ export interface FilterObject {
 }
 
 /**
- * Light, Opinionated, multi-purpose MongoDb query builder for searching and filtering
+ * Light MongoDb query builder for searching and filtering
  * 
  * @param queryObject The object that contains the query attributes and their values, usually request.params
  * @param filters The conditions array that defines the searchable columns and their types
