@@ -16,6 +16,7 @@ UserRouter.get('/count', qufl.auth(), (req, res, next) => controller.count(req, 
 UserRouter.get('/:id', qufl.auth(), (req, res, next) => controller.getSpecific(req, res, next));
 UserRouter.post('/', qufl.auth(), (req, res, next) => controller.create(req, res, next));
 UserRouter.patch('/:id', qufl.auth(), (req, res, next) => controller.update(req, res, next));
+UserRouter.patch('/', qufl.auth(), (req, res, next) => controller.updateMany(req, res, next));
 UserRouter.delete('/:id', qufl.auth(), (req, res, next) => controller.delete(req, res, next));
 UserRouter.delete('/', qufl.auth(), (req, res, next) => controller.deleteMany(req, res, next));
 
