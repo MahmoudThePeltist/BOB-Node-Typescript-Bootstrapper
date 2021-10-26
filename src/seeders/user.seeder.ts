@@ -9,11 +9,11 @@ export const factory = async (data: any): Promise<Partial<User>> => {
     const password: string = await bcrypt.hash(data.password, 10);
 
     return {
-        _id: data._id ?? null,
-        name: data.name ?? null,
-        role: data.role ?? null,
-        password: password ?? null,
-        email: data.email ?? null
+        id: data.id ?? undefined,
+        name: data.name ?? undefined,
+        role: data.role ?? undefined,
+        password: password ?? undefined,
+        email: data.email ?? undefined
     }
 }
 
@@ -34,6 +34,6 @@ export const seed = async () => {
             }),
         ])
     } catch(e: any) {
-        console.log("🌱 users - Seed warning: ", e.message);
+        console.log("🌱 Users - Seed warning: ", e.message);
     }
 } 
