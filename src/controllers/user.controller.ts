@@ -15,10 +15,55 @@ export default class UserController extends BaseController<User> {
      */
     async create(req: Request, res: Response, next: NextFunction) {
         try {
-            let userObject: User = req.body;
+            let data: User = req.body;
+            let response = await this.userModel.create(data);
+            res.send({
+                data: response,
+                success: true
+            })
+        } catch(e) {
+            next(e);
+        }
+    }
+    async update(req: Request, res: Response, next: NextFunction) {
+        try {
+            const data: Partial<User> = req.body;
             // Using bcrypt to hash the user password
-            userObject.password = await bcrypt.hash(userObject.password, 10);
-            let response = await this.userModel.create(userObject);
+            if(data.password) data.password = await bcrypt.hash(data.password, 10);
+
+            let response = await this.userModel.update({id: req.params.id}, data);
+            res.send({
+                data: response,
+                success: true
+            })
+        } catch(e) {
+            next(e);
+        }
+    }
+
+    async updateMany(req: Request, res: Response, next: NextFunction) {
+        try {
+            const data: Partial<User> = req.body;
+            // Using bcrypt to hash the user password
+            if(data.password) data.password = await bcrypt.hash(data.password, 10);
+
+            let response = await this.userModel.updateMany({id: req.params.id}, data);
+            res.send({
+                data: response,
+                success: true
+            })
+        } catch(e) {
+            next(e);
+        }
+    }
+
+    async upsert(req: Request, res: Response, next: NextFunction) {
+        try {
+            const data: Partial<User> = req.body;
+            // Using bcrypt to hash the user password
+            if(data.password) data.password = await bcrypt.hash(data.password, 10);
+
+            let response = await this.userModel.upsert({id: req.params.id}, data);
             res.send({
                 data: response,
                 success: true
